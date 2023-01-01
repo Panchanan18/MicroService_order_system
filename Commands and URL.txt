@@ -1,0 +1,35 @@
+Swagger Apis:
+
+Product Service:
+http://localhost:9091/swagger-ui.html
+
+Order Service:
+http://localhost:9093/swagger-ui.html
+
+Inventory Service:
+http://localhost:9095/swagger-ui.html
+
+
+
+Kafka Commands 
+
+
+Running Zookeeper Server
+.\bin\windows\zookeeper-server-start.bat .\config\zookeeper.properties
+
+Running Kafka Server
+.\bin\windows\kafka-server-start.bat .\config\server.properties
+
+Creating Topic
+.\bin\windows\kafka-topics.bat --create --bootstrap-server localhost:9092  --topic name_of_topic
+
+ListIng all the TOpics
+.\bin\windows\kafka-topics.bat --list --bootstrap-server localhost:9092 
+
+Console Consumer
+.\bin\windows\kafka-console-consumer.bat --bootstrap-server localhost:9092 --topic notification_update --from-beginning
+
+
+
+
+

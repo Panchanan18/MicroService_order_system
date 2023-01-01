@@ -1,0 +1,33 @@
+server:
+  port: 9090
+spring:
+  application:
+    name: API-GATEWAY
+  cloud:
+    gateway:
+      routes:
+        - id: PRODUCT-SERVICE
+          uri: lb://PRODUCT-SERVICE
+          predicates:
+            - Path=/product/**
+
+        - id: ORDER-SERVICE
+          uri: lb://ORDER-SERVICE
+          predicates:
+            - Path=/orders/**
+        - id: INVENTORY-SERVICE
+          uri: lb://INVENTORY-SERVICE
+          predicates:
+            - Path=/inventory/**
+        - id: SERVICE-REGISTRY
+          uri: http://localhost:8761
+          predicates:
+            - Path=/eureka/
+          filters:
+            - SetPath=/
+        - id: SERVICE-REGISTRY-STATIC
+          uri: http://localhost:8761
+          predicates:
+            - Path=/eureka/**
+
+
