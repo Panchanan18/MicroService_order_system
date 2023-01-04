@@ -1,4 +1,4 @@
-package com.microservice3.inventoryservice.controller;
+ package com.microservice3.inventoryservice.controller;
 
 import com.microservice3.inventoryservice.exception.ResourceNotFoundException;
 import com.microservice3.inventoryservice.model.Inventory;
