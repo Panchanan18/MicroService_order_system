@@ -2,9 +2,13 @@ package com.microservice.microservice3.productservice.service;
 
 import com.microservice.microservice3.productservice.exception.ProductNotFoundException;
 import com.microservice.microservice3.productservice.model.Product;
+import com.microservice.microservice3.productservice.model.ProductPage;
 import com.microservice.microservice3.productservice.model.ProductResponse;
 import com.microservice.microservice3.productservice.repos.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,9 +27,26 @@ public class ProductService {
         return new ProductResponse(product.getId(),product.getName(),product.getDesc(),product.getPrice(),"Created");
     }
 
-    public List<Product> getAllProducts() {
-        List<Product> products = productRepository.findAll();
-        return products;
+    public ProductPage getAllProducts(int pageSize, int pageNumber, String sortBy,String sortDir) {
+        PageRequest pageRequest;
+        if(sortDir.equalsIgnoreCase("asc")){
+            pageRequest = PageRequest.of(pageNumber, pageSize, Sort.by(sortBy).ascending());
+        }
+        else{
+            pageRequest = PageRequest.of(pageNumber, pageSize, Sort.by(sortBy).descending());
+        }
+
+
+
+        Page<Product> all = this.productRepository.findAll(pageRequest);
+        List<Product> productList = all.getContent();
+        ProductPage productPage = new ProductPage();
+        productPage.setProductList(productList);
+        productPage.setPageNumber(all.getNumber());
+        productPage.setPageSize(all.getSize());
+        productPage.setTotalElements(all.getTotalElements());
+        productPage.setLastPage(all.isLast());
+        return productPage;
     }
 
     public Product getById(String id) throws ProductNotFoundException {

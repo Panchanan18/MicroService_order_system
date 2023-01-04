@@ -2,6 +2,7 @@ package com.microservice.microservice3.productservice.controller;
 
 import com.microservice.microservice3.productservice.exception.ProductNotFoundException;
 import com.microservice.microservice3.productservice.model.Product;
+import com.microservice.microservice3.productservice.model.ProductPage;
 import com.microservice.microservice3.productservice.model.ProductResponse;
 import com.microservice.microservice3.productservice.service.ProductService;
 import io.swagger.annotations.Api;
@@ -27,8 +28,11 @@ public class ProductController {
 
     @GetMapping("/getAll")
     @ApiOperation(value="Get All Products")
-    public ResponseEntity<List<Product>> getAllProducts(){
-        return new ResponseEntity<>(productService.getAllProducts(), HttpStatus.OK);
+    public ResponseEntity<ProductPage> getAllProducts(@RequestParam(value="pageSize", defaultValue ="10", required = false) int pageSize,
+                                                      @RequestParam(value = "pageNumber", defaultValue = "0", required = false) int pageNumber,
+                                                      @RequestParam(value="sortBy", defaultValue = "id",required = false) String sortBy,
+                                                      @RequestParam(value="sortDir", defaultValue = "asc"  , required = false) String sortDir){
+        return new ResponseEntity<>(productService.getAllProducts(pageSize,pageNumber,sortBy,sortDir), HttpStatus.OK);
     }
 
     @GetMapping("/getById/{id}")
