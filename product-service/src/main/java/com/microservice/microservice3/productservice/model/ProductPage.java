@@ -11,7 +11,7 @@ import java.util.List;
 public class ProductPage {
     private List<Product> productList;
     private int pageNumber;
-    private int pageSize;
+    private int noOfElements;
     private Long totalElements;
     private int totalPages;
     private boolean lastPage;

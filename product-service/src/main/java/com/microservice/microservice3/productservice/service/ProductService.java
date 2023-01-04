@@ -30,20 +30,20 @@ public class ProductService {
     public ProductPage getAllProducts(int pageSize, int pageNumber, String sortBy,String sortDir) {
         PageRequest pageRequest;
         if(sortDir.equalsIgnoreCase("asc")){
-            pageRequest = PageRequest.of(pageNumber, pageSize, Sort.by(sortBy).ascending());
+            pageRequest = PageRequest.of(pageNumber-1, pageSize, Sort.by(sortBy).ascending());
         }
         else{
-            pageRequest = PageRequest.of(pageNumber, pageSize, Sort.by(sortBy).descending());
+            pageRequest = PageRequest.of(pageNumber-1, pageSize, Sort.by(sortBy).descending());
         }
 
 
 
-        Page<Product> all = this.productRepository.findAll(pageRequest);
+        Page<Product> all = productRepository.findAll(pageRequest);
         List<Product> productList = all.getContent();
         ProductPage productPage = new ProductPage();
         productPage.setProductList(productList);
-        productPage.setPageNumber(all.getNumber());
-        productPage.setPageSize(all.getSize());
+        productPage.setPageNumber(all.getNumber()+1);
+        productPage.setNoOfElements(all.getSize());
         productPage.setTotalElements(all.getTotalElements());
         productPage.setLastPage(all.isLast());
         productPage.setTotalPages(all.getTotalPages());
