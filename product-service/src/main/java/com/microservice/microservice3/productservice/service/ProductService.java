@@ -46,6 +46,7 @@ public class ProductService {
         productPage.setPageSize(all.getSize());
         productPage.setTotalElements(all.getTotalElements());
         productPage.setLastPage(all.isLast());
+        productPage.setTotalPages(all.getTotalPages());
         return productPage;
     }
 

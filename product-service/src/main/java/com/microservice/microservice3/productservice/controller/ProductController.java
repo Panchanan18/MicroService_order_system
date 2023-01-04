@@ -28,8 +28,8 @@ public class ProductController {
 
     @GetMapping("/getAll")
     @ApiOperation(value="Get All Products")
-    public ResponseEntity<ProductPage> getAllProducts(@RequestParam(value="pageSize", defaultValue ="10", required = false) int pageSize,
-                                                      @RequestParam(value = "pageNumber", defaultValue = "0", required = false) int pageNumber,
+    public ResponseEntity<ProductPage> getAllProducts(@RequestParam(value="pageSize", defaultValue ="3", required = false) int pageSize,
+                                                      @RequestParam(value = "pageNumber", defaultValue = "1", required = false) int pageNumber,
                                                       @RequestParam(value="sortBy", defaultValue = "id",required = false) String sortBy,
                                                       @RequestParam(value="sortDir", defaultValue = "asc"  , required = false) String sortDir){
         return new ResponseEntity<>(productService.getAllProducts(pageSize,pageNumber,sortBy,sortDir), HttpStatus.OK);
